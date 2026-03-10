@@ -69,6 +69,16 @@ jobs:
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.BACKEND_IMAGE_NAME }}:${{ steps.get_tag.outputs.next_tag }}
 
-      
+    - name: Output image URI
+      run: |
+        echo "Backend image: ${{ secrets.DOCKER_USERNAME }}/${{ env.BACKEND_IMAGE_NAME }}:${{ steps.get_tag.outputs.next_tag }}"
+    - name: Update K8s manifest with new backend image tag
+      env:
+        IMAGE_TAG: ${{ steps.get_tag.outputs.next_tag }}
+      run: |
+            sed -i "s|image: ${{ secrets.DOCKER_USERNAME }}/${{ env.BACKEND_IMAGE_NAME }}:.*|image: ${{ secrets.DOCKER_USERNAME }}/${{ env.BACKEND_IMAGE_NAME }}:$IMAGE_TAG|g" \
+              kubernetes-manifests/backend.yml   # Change to your manifest path
+
+
 
 
