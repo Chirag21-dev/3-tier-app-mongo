@@ -61,6 +61,15 @@ jobs:
           sed -i "s|image: ${{ secrets.DOCKER_USERNAME }}/${{ env.FRONTEND_IMAGE_NAME }}:.*|image: ${{ secrets.DOCKER_USERNAME }}/${{ env.FRONTEND_IMAGE_NAME }}:$IMAGE_TAG|g" \
             kubernetes-manifests/frontend.yaml   # Change to your manifest path
 
+    - name: Commit and push updated frontend manifest
+      run: |
+          git config user.name "chirag ks"
+          git config user.email "chiragks@gmail.com"
+          git remote set-url origin https://x-access-token:${{ secrets.TOKEN_GITHUB }}@github.com/${{ github.repository }}
+          git add ../kubernetes-manifests/frontend.yaml
+          git diff --cached --quiet || git commit -m "ci: update frontend image to ${{ steps.get_tag.outputs.next_tag }}"
+          git push
+
     - name: Build and push backend image
       uses: docker/build-push-action@v5
       with:
@@ -78,6 +87,15 @@ jobs:
       run: |
             sed -i "s|image: ${{ secrets.DOCKER_USERNAME }}/${{ env.BACKEND_IMAGE_NAME }}:.*|image: ${{ secrets.DOCKER_USERNAME }}/${{ env.BACKEND_IMAGE_NAME }}:$IMAGE_TAG|g" \
               kubernetes-manifests/backend.yaml   # Change to your manifest path
+
+    - name: Commit and push updated backend manifest
+      run: |
+          git config user.name "chirag ks"
+          git config user.email "chiragks@gmail.com"
+          git remote set-url origin https://x-access-token:${{ secrets.TOKEN_GITHUB }}@github.com/${{ github.repository }}
+          git add ../kubernetes-manifests/backend.yaml
+          git diff --cached --quiet || git commit -m "ci: update backend image to ${{ steps.get_tag.outputs.next_tag }}"
+          git push
 
 
 
