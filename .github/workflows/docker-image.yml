@@ -42,7 +42,7 @@ jobs:
 
             echo "next_tag=$NEXT_TAG" >> $GITHUB_OUTPUT
 
-    - name: Build and push
+    - name: Build and push the frontend image
       uses: docker/build-push-action@v5
       with:
         context: ./frontend
@@ -60,6 +60,14 @@ jobs:
       run: |
           sed -i "s|image: ${{ secrets.DOCKER_USERNAME }}/${{ env.FRONTEND_IMAGE_NAME }}:.*|image: ${{ secrets.DOCKER_USERNAME }}/${{ env.FRONTEND_IMAGE_NAME }}:$IMAGE_TAG|g" \
             kubernetes-manifests/frontend.yaml   # Change to your manifest path
+
+    - name: Build and push backend image
+      uses: docker/build-push-action@v5
+      with:
+        context: ./server
+        file: ./server/Dockerfile
+        push: true
+        tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.BACKEND_IMAGE_NAME }}:${{ steps.get_tag.outputs.next_tag }}
 
       
 
