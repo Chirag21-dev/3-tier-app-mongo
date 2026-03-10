@@ -50,6 +50,10 @@ jobs:
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.FRONTEND_IMAGE_NAME }}:${{ steps.get_tag.outputs.next_tag }}
 
+    - name: Output image URI
+      run: |
+          echo "Frontend image: ${{ secrets.DOCKER_USERNAME }}/${{ env.FRONTEND_IMAGE_NAME }}:${{ steps.get_tag.outputs.next_tag }}"
+
       
 
 
