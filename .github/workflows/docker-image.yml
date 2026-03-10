@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ "main" ]
 env:                      
-  FRONTEND_IMAGE_NAME: nodejs-frontend       # Change to your dockerhub/ECR repo name
+  FRONTEND_IMAGE_NAME: nodejs-frontend       # Change to your fronnt end dockerhub/ECR repo name
   BACKEND_IMAGE_NAME: nodejs-backend
 
 jobs:
