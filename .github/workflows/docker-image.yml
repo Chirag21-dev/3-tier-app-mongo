@@ -6,8 +6,8 @@ on:
   pull_request:
     branches: [ "main" ]
 env:                      
-  FRONTEND_IMAGE_NAME: nodejs-frontend       # Change to your ECR repo name
-  BACKEND_IMAGE_NAME: nodejsbackend
+  FRONTEND_IMAGE_NAME: nodejs-frontend       # Change to your dockerhub/ECR repo name
+  BACKEND_IMAGE_NAME: nodejs-backend
 
 jobs:
 
@@ -41,5 +41,12 @@ jobs:
 
     - name: Build and push
       uses: docker/build-push-action@v5
+      with:
+        context: ./frontend
+        file: ./frontend/Dockerfile
+        push: true
+        tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.FRONTEND_IMAGE_NAME }}:${{ steps.get_tag.outputs.next_tag }}
+
+      
 
 
