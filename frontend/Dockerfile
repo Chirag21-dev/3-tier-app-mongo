@@ -6,7 +6,7 @@ COPY package*.json ./
 RUN npm install --legacy-peer-deps
 
 COPY . .
-RUN npm run build || true
+RUN npm run build && ls -la
 #RUN npm ci
 # Production stage
 FROM nginx:alpine
