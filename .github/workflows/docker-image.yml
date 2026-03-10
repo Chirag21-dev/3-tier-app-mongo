@@ -77,7 +77,7 @@ jobs:
         IMAGE_TAG: ${{ steps.get_tag.outputs.next_tag }}
       run: |
             sed -i "s|image: ${{ secrets.DOCKER_USERNAME }}/${{ env.BACKEND_IMAGE_NAME }}:.*|image: ${{ secrets.DOCKER_USERNAME }}/${{ env.BACKEND_IMAGE_NAME }}:$IMAGE_TAG|g" \
-              kubernetes-manifests/backend.yml   # Change to your manifest path
+              kubernetes-manifests/backend.yaml   # Change to your manifest path
 
 
 
