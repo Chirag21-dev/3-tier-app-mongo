@@ -54,6 +54,13 @@ jobs:
       run: |
           echo "Frontend image: ${{ secrets.DOCKER_USERNAME }}/${{ env.FRONTEND_IMAGE_NAME }}:${{ steps.get_tag.outputs.next_tag }}"
 
+    - name: Update K8s manifest with new frontend image tag
+      env:
+          IMAGE_TAG: ${{ steps.get_tag.outputs.next_tag }}
+      run: |
+          sed -i "s|image: ${{ secrets.DOCKER_USERNAME }}/${{ env.FRONTEND_IMAGE_NAME }}:.*|image: ${{ secrets.DOCKER_USERNAME }}/${{ env.FRONTEND_IMAGE_NAME }}:$IMAGE_TAG|g" \
+            ../kubernetes-manifests/frontend.yml   # Change to your manifest path
+
       
 
 
