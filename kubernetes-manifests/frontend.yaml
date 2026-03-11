@@ -24,6 +24,6 @@ spec:
               topologyKey: topology.kubernetes.io/zone
       containers:
         - name: frontend
-          image:chiragks1/nodejs-frontend:v1
+          image:chiragks1/nodejs-frontend:v19
           ports:
             - containerPort: 80 
