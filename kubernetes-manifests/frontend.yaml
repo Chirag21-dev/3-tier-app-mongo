@@ -27,3 +27,7 @@ spec:
           image:chiragks1/nodejs-frontend:v19
           ports:
             - containerPort: 80 
+
+          envFrom:
+            - configMapRef:
+                name: frontend-config
