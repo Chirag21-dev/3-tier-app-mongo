@@ -22,6 +22,6 @@ spec:
               topologyKey: topology.kubernetes.io/zone
       containers:
         - name: backend
-          image: chiragks1/nodejs-backend:v1
+          image: chiragks1/nodejs-backend:v13
           ports:
             - containerPort: 5000 
