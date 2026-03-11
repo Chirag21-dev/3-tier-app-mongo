@@ -25,8 +25,7 @@ spec:
           image: chiragks1/nodejs-backend:v13
           ports:
             - containerPort: 5000 
-
-           envFrom:
+          envFrom:
             - configMapRef:
                 name: backend-config
             - secretRef:
