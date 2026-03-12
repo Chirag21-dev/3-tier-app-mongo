@@ -19,7 +19,7 @@ iam:
 
 managedNodeGroups:
   - name: my-node-group
-    instanceType: t2.medium
+    instanceType: t3.medium
     minSize: 2
     maxSize: 2
     privateNetworking: true
@@ -28,7 +28,7 @@ managedNodeGroups:
       withAddonPolicies:
         autoScaler: true
         externalDNS: false
-        certManager: yes
+        certManager: true
         ebs: true
         fsx: false
         efs: false
